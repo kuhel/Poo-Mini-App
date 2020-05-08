@@ -20,6 +20,30 @@ const DEFAULT_TOILET_VISITS = 3;
 const DEFAULT_PERSONS_COUNT = 2;
 const IS_TAPTIC_SUPPORTED	= bridge.supports('VKWebAppTapticNotificationOccurred');
 
+function throttle(callback, delay) {
+	let isThrottled = false, args, context;
+
+	function wrapper() {
+		if (isThrottled) {
+			args = arguments;
+			context = this;
+			return;
+		}
+
+		isThrottled = true;
+		callback.apply(this, arguments);
+		
+		setTimeout(() => {
+			isThrottled = false;
+			if (args) {
+				wrapper.apply(context, args);
+				args = context = null;
+			}
+		}, delay);
+	}
+	return wrapper;
+}
+
 const Home = ({ fetchedState, snackbarError }) => {
 	const [rollsCount, setRollsCount] = useState(fetchedState.hasOwnProperty('rollsCount') ? fetchedState.rollsCount : DEFAULT_ROLLS_COUNT);
 	const [toiletVisits, setToiletVisits] = useState(fetchedState.hasOwnProperty('toiletVisits') ? fetchedState.toiletVisits : DEFAULT_TOILET_VISITS);
@@ -82,6 +106,22 @@ const Home = ({ fetchedState, snackbarError }) => {
 		return Math.round(totalSheets / sheetsPerDay);
 	}
 
+	const onRollsChange = throttle(rolls => {
+		setSheetsCount(sheetsCount + (rolls - rollsCount) * SHEETS_PER_ROLL);
+		setRollsCount(rolls);
+		setStorage();
+	}, 300);
+
+	const onVisitsChange = throttle(visits => {
+		setToiletVisits(visits)
+		setStorage();
+	}, 300);
+
+	const onPersonsChange = throttle(persons => {
+		setPersonsCount(persons);
+		setStorage();
+	}, 300);
+
 	return (
 		<Fragment>
 			<Group>
@@ -99,11 +139,7 @@ const Home = ({ fetchedState, snackbarError }) => {
 								<span role='img' aria-label='Toilet paper'>🧻</span> Количество рулонов
 							</Header>
 						}
-						onChange={rolls => {
-							setSheetsCount(sheetsCount + (rolls - rollsCount) * SHEETS_PER_ROLL);
-							setRollsCount(rolls);
-							setStorage();
-						}}
+						onChange={(rolls) => onRollsChange(rolls)}
 					/>
 					<Slider
 						step={1}
@@ -115,10 +151,7 @@ const Home = ({ fetchedState, snackbarError }) => {
 								<span role='img' aria-label='Poo'>💩</span> Посещений туалета в день
 							</Header>
 						}
-						onChange={visits => {
-							setToiletVisits(visits)
-							setStorage();
-						}}
+						onChange={visits => onVisitsChange(visits)}
 					/>
 					<Slider
 						step={1}
@@ -130,10 +163,7 @@ const Home = ({ fetchedState, snackbarError }) => {
 								<span role='img' aria-label='People in household'>👨‍👩‍👧‍👦</span> Людей дома
 							</Header>
 						}
-						onChange={persons => {
-							setPersonsCount(persons);
-							setStorage();
-						}}
+						onChange={persons => onPersonsChange(persons)}
 					/>
 			</FormLayout>
 
