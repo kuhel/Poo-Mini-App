@@ -4,8 +4,8 @@
 	width: 120px;
 	height: 120px;
 	transform: translateY(-6px);
-	background-color: #1BA0E0;
-	box-shadow: 0 6px 0 #105F85;
+	background-color: #23B7D7;
+	box-shadow: 0 6px 0 #097B93;
 	transition: transform .05s ease-in-out, box-shadow .05s ease-in-out;
 }
 
