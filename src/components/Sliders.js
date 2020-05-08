@@ -40,6 +40,7 @@ const Home = ({ fetchedState, snackbarError }) => {
 			>
 				У вас не осталось туалетки
 			</Snackbar>);
+			setRollsCount(0);
 			return;
 		}
 		const newSheetsCount = sheetsCount - 1;
