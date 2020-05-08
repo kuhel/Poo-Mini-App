@@ -106,7 +106,7 @@ const Home = ({ fetchedState, snackbarError }) => {
 					/>
 					<Slider
 						step={1}
-						min={0}
+						min={1}
 						max={8}
 						value={toiletVisits}
 						top={
@@ -121,7 +121,7 @@ const Home = ({ fetchedState, snackbarError }) => {
 					/>
 					<Slider
 						step={1}
-						min={0}
+						min={1}
 						max={16}
 						value={personsCount}
 						top={
