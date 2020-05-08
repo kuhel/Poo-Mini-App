@@ -1,0 +1,10 @@
+.User {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.User .Cell__main {
+  padding-right: 0;
+}

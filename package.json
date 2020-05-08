@@ -1,0 +1,47 @@
+{
+  "name": "my_mini_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env PORT=10888 HTTPS=true react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "vk-miniapps-deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^5.2.1",
+    "react-hot-loader": "^4.12.21",
+    "react-scripts": "^3.4.1"
+  },
+  "dependencies": {
+    "@vkontakte/icons": "^1.20.2",
+    "@vkontakte/vk-bridge": "^2.2.0",
+    "@vkontakte/vk-miniapps-deploy": "0.0.17",
+    "@vkontakte/vkui": "^3.8.3",
+    "babel-eslint": "^10.1.0",
+    "chalk": "^2.4.2",
+    "core-js": "^3.6.5",
+    "eruda": "^2.3.3",
+    "eruda-code": "^2.0.0",
+    "eruda-dom": "^2.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
