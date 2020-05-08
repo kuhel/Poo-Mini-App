@@ -107,20 +107,23 @@ const Home = ({ fetchedState, snackbarError }) => {
 	}
 
 	const onRollsChange = throttle(rolls => {
+		if (rolls === rollsCount) return;
 		setSheetsCount(sheetsCount + (rolls - rollsCount) * SHEETS_PER_ROLL);
 		setRollsCount(rolls);
 		setStorage();
-	}, 300);
+	}, 200);
 
 	const onVisitsChange = throttle(visits => {
+		if (visits === toiletVisits) return;
 		setToiletVisits(visits)
 		setStorage();
-	}, 300);
+	}, 200);
 
 	const onPersonsChange = throttle(persons => {
+		if (persons === personsCount) return;
 		setPersonsCount(persons);
 		setStorage();
-	}, 300);
+	}, 200);
 
 	return (
 		<Fragment>
